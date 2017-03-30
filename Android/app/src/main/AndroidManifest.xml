@@ -15,11 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LupaPasswordActivity">
-        </activity>
-        <activity android:name=".ui.RegistrasiActivity">
-        </activity>
         <activity android:name=".ui.SplashScreenActivity">
+        </activity>
+        <activity android:name=".ui.VerificationActivity">
+        </activity>
+        <activity android:name=".ui.ProfileActivity">
         </activity>
     </application>
 

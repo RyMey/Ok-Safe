@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import id.jeruk.ok_safe.R;
 
-public class LupaPasswordActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lupa_password);
+        setContentView(R.layout.activity_profile);
     }
 }

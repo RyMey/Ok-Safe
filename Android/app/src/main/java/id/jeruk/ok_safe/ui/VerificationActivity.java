@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import id.jeruk.ok_safe.R;
 
-public class RegistrasiActivity extends AppCompatActivity {
+public class VerificationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registrasi);
+        setContentView(R.layout.activity_verification);
     }
 }
