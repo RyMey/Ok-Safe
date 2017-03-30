@@ -3,17 +3,13 @@ package id.jeruk.ok_safe.ui;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import id.jeruk.ok_safe.R;
 
-public class LoginActivity extends AppCompatActivity {
-
+public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+        setContentView(R.layout.activity_splash_screen);
     }
 }
