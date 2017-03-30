@@ -1,7 +1,6 @@
 package id.jeruk.ok_safe.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +23,9 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick(R.id.bt_masuk)
     public void masuk() {
         if (etNomorTelepon.getText().length() >= 10) {
-            startActivity(new Intent(this, VerificationActivity.class));
+            Intent loginIntent = new Intent(this,VerificationActivity.class);
+            loginIntent.putExtra("nomorTelepon", etNomorTelepon.getText().toString());
+            startActivity(loginIntent);
         }
     }
 

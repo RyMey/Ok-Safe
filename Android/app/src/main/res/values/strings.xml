@@ -8,16 +8,15 @@
 
     <!-- Verifikasi -->
     <string name="masukan_kode_verifikasi">Masukan Kode Verifikasi</string>
-    <string name="desc_phone_number">kami telah mengirimkan pesan ke nomor</string>
     <string name="ubah_nomor_telepon">Ubah Nomor Telepon</string>
     <string name="hint_kode_verifikasi">Kode Verifikasi</string>
+    <string name="desc_nomor_telepon">Kami telah mengirimkan pesan ke nomor</string>
     <string name="kirim_ulang_kode">Kirim Ulang Kode</string>
-    <string name="inisial_waktu_resend">00:00</string>
 
     <!-- Profil Pengguna -->
     <string name="profil">Profil Pengguna</string>
     <string name="desc_welcome">Selamat Datang! Silahkan lengkapi data anda.</string>
-    <string name="hint_nama">Nama</string>
+    <string name="hint_nama">Nama Lengkap</string>
     <string name="hint_no_id">No ID KTP/KTM/NISN dsb..</string>
     <string name="simpan">Simpan</string>
 </resources>
