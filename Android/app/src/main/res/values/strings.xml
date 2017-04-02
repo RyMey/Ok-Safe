@@ -27,5 +27,11 @@
     <string name="action_settings">Settings</string>
     <string name="title_main">Laporan Anda</string>
     <string name="kesan">Kesan</string>
+
+    <!-- Add Laporan Activity -->
     <string name="komentar">komentar</string>
+    <string name="title_tambah_laporan">Tambah Laporan</string>
+    <string name="press_pin_lokasi">Tekan dan Pilih Lokasi Laporan</string>
+    <string name="hint_desc_laporan">Masukan deskripsi laporan</string>
+    <string name="desc_add_photo">Tambahkan foto (opsi):</string>
 </resources>

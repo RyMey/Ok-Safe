@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.app.AlertDialog;
+import android.widget.ImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +22,7 @@ public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.et_nama) EditText etNama;
     @BindView(R.id.et_id_user) EditText etIdUser;
     @BindView(R.id.bt_simpan) Button btSimpan;
+    @BindView(R.id.iv_back) ImageView ivBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
