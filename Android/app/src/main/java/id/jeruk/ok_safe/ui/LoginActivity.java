@@ -20,6 +20,13 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.bt_masuk) Button btMasuk;
     @BindView(R.id.iv_cancel) ImageView ivCancel;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+    }
+
     @OnClick(R.id.bt_masuk)
     public void masuk() {
         if (etNomorTelepon.getText().length() >= 10) {
@@ -48,13 +55,4 @@ public class LoginActivity extends AppCompatActivity {
             btMasuk.setEnabled(false);
         }
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
-    }
-
-
 }

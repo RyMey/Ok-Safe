@@ -22,6 +22,14 @@ public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.et_id_user) EditText etIdUser;
     @BindView(R.id.bt_simpan) Button btSimpan;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
+        ButterKnife.bind(this);
+        Util.hideKeyboard(this);
+    }
+
     @OnTextChanged(R.id.et_nama)
     public void changeNama() {
         nyalakanButtonSimpan();
@@ -39,12 +47,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setItems(inputPhotoOptions, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which == 0) openCamera();
-                        else if (which == 1) openGallery();
-                        dialog.dismiss();
-                    }
-                }).show();
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) openCamera();
+                else if (which == 1) openGallery();
+                dialog.dismiss();
+            }
+        }).show();
 
     }
 
@@ -59,6 +67,11 @@ public class ProfileActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
     }
 
+    @OnClick(R.id.bt_simpan)
+    public void simpan(){
+        startActivity(new Intent(this,MainActivity.class));
+    }
+
     private void nyalakanButtonSimpan() {
         if (!etNama.getText().toString().equals("") && !etIdUser.getText().toString().equals("")) {
             btSimpan.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
@@ -69,13 +82,5 @@ public class ProfileActivity extends AppCompatActivity {
             btSimpan.setTextColor(ContextCompat.getColor(this, R.color.colorSecondaryText));
             btSimpan.setEnabled(false);
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-        ButterKnife.bind(this);
-        Util.hideKeyboard(this);
     }
 }

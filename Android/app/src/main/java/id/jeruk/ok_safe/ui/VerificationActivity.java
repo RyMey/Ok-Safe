@@ -30,6 +30,18 @@ public class VerificationActivity extends AppCompatActivity {
     private int seconds = 59;
     private boolean stopTimer = false;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_verification);
+        ButterKnife.bind(this);
+        Util.hideKeyboard(this);
+        tvDescNomor.setText(tvDescNomor.getText() + " " + getIntent().getStringExtra("nomorTelepon"));
+
+        tvWaktuTunggu.setText("00:" + seconds);
+        timer();
+    }
+
     @OnClick(R.id.iv_cancel)
     public void cancelPhoneNumber() {
         etKodeVerifikasi.setText("");
@@ -120,16 +132,4 @@ public class VerificationActivity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_verification);
-        ButterKnife.bind(this);
-        Util.hideKeyboard(this);
-        tvDescNomor.setText(tvDescNomor.getText() + " " + getIntent().getStringExtra("nomorTelepon"));
-
-        tvWaktuTunggu.setText("00:" + seconds);
-        timer();
-    }
 }
