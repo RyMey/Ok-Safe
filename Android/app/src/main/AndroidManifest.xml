@@ -41,6 +41,8 @@
         </activity>
         <activity android:name=".ui.AddReportActivity">
         </activity>
+        <activity android:name=".ui.CommandActivity">
+        </activity>
     </application>
 
 </manifest>
