@@ -43,6 +43,14 @@
         </activity>
         <activity android:name=".ui.CommandActivity">
         </activity>
+        <activity android:name=".ui.RewardActivity">
+        </activity>
+        <activity android:name=".ui.MapActivity">
+        </activity>
+        <activity android:name=".ui.HelpActivity">
+        </activity>
+        <activity android:name=".ui.AboutActivity">
+        </activity>
     </application>
 
 </manifest>

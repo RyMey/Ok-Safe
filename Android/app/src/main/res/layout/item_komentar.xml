@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingEnd="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingStart="8dp"
+                android:paddingTop="8dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/circle_white"
+        android:src="@drawable/ic_person"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_toEndOf="@id/iv_photo"
+        android:layout_toRightOf="@id/iv_photo"
+        android:text="Rya Meyvriska"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_name"
+        android:layout_alignStart="@id/tv_name"
+        android:layout_below="@id/tv_name"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="21 Mar 2017, 13:10"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_komentar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_name"
+        android:layout_alignStart="@id/tv_name"
+        android:layout_below="@id/tv_date"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="8dp"
+        android:text="Ini contoh komentar yang cukup panjang kalik ya, kan contoh aja..."/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignBottom="@id/tv_komentar"
+        android:background="@color/colorDivider"/>
+</RelativeLayout>

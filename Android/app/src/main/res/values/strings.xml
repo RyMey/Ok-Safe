@@ -34,4 +34,19 @@
     <string name="press_pin_lokasi">Tekan dan Pilih Lokasi Laporan</string>
     <string name="hint_desc_laporan">Masukan deskripsi laporan</string>
     <string name="desc_add_photo">Tambahkan foto (opsi):</string>
+    <string name="title_komentar">Komentar</string>
+
+    <!-- Add Command Activity -->
+    <string name="hint_form_komentar">Tulis komentar…</string>
+
+    <!-- Reward Activity -->
+    <string name="title_reward">Reward Anda</string>
+
+    <!-- About Activity -->
+    <string name="desc_univ">Departemen Ilmu Komputer \nInstitute Pertanian Bogor</string>
+    <string name="tim_jeruk">Tim Jeruk</string>
+    <string name="syihab">MUHAMAD SYIHABUDIN G64164007</string>
+    <string name="rya">RYA MEYVRISKA G64164008</string>
+    <string name="mail">ISMAIL ADIMA G64164053</string>
+    <string name="faisal">FAISAL MAHYA LUBIS G64164058</string>
 </resources>
