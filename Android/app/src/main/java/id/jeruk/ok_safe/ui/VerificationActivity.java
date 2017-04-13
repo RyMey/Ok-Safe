@@ -119,6 +119,7 @@ public class VerificationActivity extends AppCompatActivity {
     public void registrasi() {
         if (btKirimUlang.getText().equals("Registrasi")) {
             Util.hideKeyboard(this);
+            stopTimer = true;
             startActivity(new Intent(this, ProfileActivity.class));
         } else {
             btKirimUlang.setBackgroundColor(ContextCompat.getColor(VerificationActivity.this, R.color.colorDivider));

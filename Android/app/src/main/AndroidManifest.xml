@@ -36,7 +36,6 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
-            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme">
         </activity>
         <activity android:name=".ui.AddReportActivity">
