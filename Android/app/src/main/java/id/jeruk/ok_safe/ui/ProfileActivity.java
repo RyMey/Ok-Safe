@@ -6,6 +6,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.app.AlertDialog;
@@ -24,12 +25,21 @@ public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.bt_simpan) Button btSimpan;
     @BindView(R.id.iv_back) ImageView ivBack;
 
+    private boolean isUbahProfile = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
         Util.hideKeyboard(this);
+
+        isUbahProfile = getIntent().getExtras().getBoolean("isUbahProfile");
+
+        if(isUbahProfile){
+            ivBack.setVisibility(View.VISIBLE);
+        }else {
+            ivBack.setVisibility(View.GONE);
+        }
     }
 
     @OnTextChanged(R.id.et_nama)
@@ -72,6 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
     @OnClick(R.id.bt_simpan)
     public void simpan(){
         startActivity(new Intent(this,MainActivity.class));
+
     }
 
     private void nyalakanButtonSimpan() {
@@ -84,5 +95,10 @@ public class ProfileActivity extends AppCompatActivity {
             btSimpan.setTextColor(ContextCompat.getColor(this, R.color.colorSecondaryText));
             btSimpan.setEnabled(false);
         }
+    }
+
+    @OnClick(R.id.iv_back)
+    public void back(){
+        onBackPressed();
     }
 }

@@ -29,6 +29,7 @@ public class VerificationActivity extends AppCompatActivity {
 
     private int seconds = 59;
     private boolean stopTimer = false;
+    private String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,8 @@ public class VerificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_verification);
         ButterKnife.bind(this);
         Util.hideKeyboard(this);
-        tvDescNomor.setText(tvDescNomor.getText() + " " + getIntent().getStringExtra("nomorTelepon"));
+        phoneNumber = getIntent().getStringExtra("nomorTelepon");
+        tvDescNomor.setText(getString(R.string.desc_nomor_telepon) + " +62 " + phoneNumber);
 
         tvWaktuTunggu.setText("00:" + seconds);
         timer();
@@ -71,7 +73,9 @@ public class VerificationActivity extends AppCompatActivity {
 
     @OnClick(R.id.tv_ubah_nomor)
     public void ubahNomor() {
-        startActivity(new Intent(this, LoginActivity.class));
+        Intent intent = new Intent(this,LoginActivity.class);
+        intent.putExtra("nomorTelepon",phoneNumber);
+        startActivity(intent);
     }
 
     @OnTextChanged(R.id.et_kode_verifikasi)
@@ -120,7 +124,9 @@ public class VerificationActivity extends AppCompatActivity {
         if (btKirimUlang.getText().equals("Registrasi")) {
             Util.hideKeyboard(this);
             stopTimer = true;
-            startActivity(new Intent(this, ProfileActivity.class));
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("isUbahProfile", false);
+            startActivity(intent);
         } else {
             btKirimUlang.setBackgroundColor(ContextCompat.getColor(VerificationActivity.this, R.color.colorDivider));
             btKirimUlang.setTextColor(ContextCompat.getColor(VerificationActivity.this, R.color.colorSecondaryText));

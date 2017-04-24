@@ -48,6 +48,8 @@
         </activity>
         <activity android:name=".ui.HelpActivity">
         </activity>
+        <activity android:name=".ui.AboutDeveloperActivity">
+        </activity>
         <activity android:name=".ui.AboutActivity">
         </activity>
     </application>

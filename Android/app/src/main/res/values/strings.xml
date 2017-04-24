@@ -28,6 +28,15 @@
     <string name="title_main">Laporan Anda</string>
     <string name="kesan">Kesan</string>
 
+    <!-- Menu Activity -->
+    <string name="ubah_profil">Ubah Profil</string>
+    <string name="reward">Reward</string>
+    <string name="peta_sebaran_laporan">Peta Sebaran Laporan</string>
+    <string name="bantuan">Bantuan</string>
+    <string name="tentang">Tentang</string>
+    <string name="keluar">Keluar</string>
+    <string name="pengembang">Pengembang</string>
+
     <!-- Add Laporan Activity -->
     <string name="komentar">komentar</string>
     <string name="title_tambah_laporan">Tambah Laporan</string>
@@ -42,11 +51,16 @@
     <!-- Reward Activity -->
     <string name="title_reward">Reward Anda</string>
 
-    <!-- About Activity -->
+    <!-- About Developer Activity -->
     <string name="desc_univ">Departemen Ilmu Komputer \nInstitute Pertanian Bogor</string>
     <string name="tim_jeruk">Tim Jeruk</string>
     <string name="syihab">MUHAMAD SYIHABUDIN G64164007</string>
     <string name="rya">RYA MEYVRISKA G64164008</string>
     <string name="mail">ISMAIL ADIMA G64164053</string>
     <string name="faisal">FAISAL MAHYA LUBIS G64164058</string>
+
+    <!-- About Activity -->
+    <string name="version">Versi</string>
+    <string name="desc_timJeruk">Tim Jeruk \nRekayasa Perangkat Lunak</string>
+    <string name="kirim_masukan">Kirim Masukan</string>
 </resources>
