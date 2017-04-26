@@ -30,7 +30,7 @@
 
     <!-- Menu Activity -->
     <string name="ubah_profil">Ubah Profil</string>
-    <string name="reward">Reward</string>
+    <string name="reward">Penghargaan</string>
     <string name="peta_sebaran_laporan">Peta Sebaran Laporan</string>
     <string name="bantuan">Bantuan</string>
     <string name="tentang">Tentang</string>
@@ -45,11 +45,11 @@
     <string name="desc_add_photo">Tambahkan foto (opsi):</string>
     <string name="title_komentar">Komentar</string>
 
-    <!-- Add Command Activity -->
+    <!-- Add Comment Activity -->
     <string name="hint_form_komentar">Tulis komentar…</string>
 
     <!-- Reward Activity -->
-    <string name="title_reward">Reward Anda</string>
+    <string name="title_reward">Penghargaan</string>
 
     <!-- About Developer Activity -->
     <string name="desc_univ">Departemen Ilmu Komputer \nInstitute Pertanian Bogor</string>

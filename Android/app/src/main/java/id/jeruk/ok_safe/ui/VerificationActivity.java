@@ -38,7 +38,7 @@ public class VerificationActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Util.hideKeyboard(this);
         phoneNumber = getIntent().getStringExtra("nomorTelepon");
-        tvDescNomor.setText(getString(R.string.desc_nomor_telepon) + " +62 " + phoneNumber);
+        tvDescNomor.setText(getString(R.string.desc_nomor_telepon) + " +62" + phoneNumber);
 
         tvWaktuTunggu.setText("00:" + seconds);
         timer();

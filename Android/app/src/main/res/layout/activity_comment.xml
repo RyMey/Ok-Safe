@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context="id.jeruk.ok_safe.ui.CommandActivity">
+    tools:context="id.jeruk.ok_safe.ui.CommentActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package id.jeruk.ok_safe.ui;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.MediaStore;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.app.AlertDialog;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.et_id_user) EditText etIdUser;
     @BindView(R.id.bt_simpan) Button btSimpan;
     @BindView(R.id.iv_back) ImageView ivBack;
+    @BindView(R.id.tv_description) TextView tvDesc;
 
     private boolean isUbahProfile = false;
     @Override
@@ -37,8 +40,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         if(isUbahProfile){
             ivBack.setVisibility(View.VISIBLE);
+            tvDesc.setVisibility(View.GONE);
         }else {
             ivBack.setVisibility(View.GONE);
+            tvDesc.setVisibility(View.VISIBLE);
         }
     }
 
@@ -56,27 +61,15 @@ public class ProfileActivity extends AppCompatActivity {
     public void inputPhoto() {
         String[] inputPhotoOptions = {"From Camera", "From Gallery"};
 
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setItems(inputPhotoOptions, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) openCamera();
-                else if (which == 1) openGallery();
+                if (which == 0) Util.openCamera(ProfileActivity.this);
+                else if (which == 1) Util.openGallery(ProfileActivity.this);
                 dialog.dismiss();
             }
         }).show();
 
-    }
-
-    private void openCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-    }
-
-    private void openGallery() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
     }
 
     @OnClick(R.id.bt_simpan)

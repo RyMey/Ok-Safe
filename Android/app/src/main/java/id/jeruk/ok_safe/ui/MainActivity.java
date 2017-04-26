@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import id.jeruk.ok_safe.R;
 import id.jeruk.ok_safe.ui.adapter.MainAdapter;
 
@@ -93,5 +94,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @OnClick(R.id.fab)
+    public void tambahLaporan(){
+        startActivity(new Intent(this,AddReportActivity.class));
     }
 }
