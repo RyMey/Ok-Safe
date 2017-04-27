@@ -130,9 +130,13 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @Override
     public void onSavedProfile() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        Snackbar.make(etNama.getRootView(),"Profil berhasil di ubah",Snackbar.LENGTH_LONG).show();
+
+        if(ivBack.getVisibility()!=View.VISIBLE) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 
     @Override
