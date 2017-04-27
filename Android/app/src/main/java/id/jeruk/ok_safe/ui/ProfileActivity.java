@@ -1,8 +1,10 @@
 package id.jeruk.ok_safe.ui;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,9 +20,11 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import id.jeruk.ok_safe.R;
 import id.jeruk.ok_safe.data.local.LocalDataManager;
+import id.jeruk.ok_safe.data.model.User;
+import id.jeruk.ok_safe.presenter.ProfilePresenter;
 import id.jeruk.ok_safe.util.Util;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements ProfilePresenter.View{
     @BindView(R.id.et_nama) EditText etNama;
     @BindView(R.id.et_id_user) EditText etIdUser;
     @BindView(R.id.bt_simpan) Button btSimpan;
@@ -29,7 +33,9 @@ public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.tv_phoneNumber) TextView tvPhoneNumber;
 
     private boolean isUbahProfile = false;
-
+    private ProfilePresenter profilePresenter;
+    private ProgressDialog progressDialog;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +52,15 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             ivBack.setVisibility(View.GONE);
             tvDesc.setVisibility(View.VISIBLE);
+        }
+
+        profilePresenter = new ProfilePresenter(this,this);
+        progressDialog = new ProgressDialog(this);
+        user = LocalDataManager.getInstance(this).getUser();
+
+        if(user!=null){
+            etNama.setText(user.getName());
+            etIdUser.setText(user.getId());
         }
     }
 
@@ -72,14 +87,12 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }).show();
 
+        profilePresenter.uploadAvatar("dummy data");
     }
 
     @OnClick(R.id.bt_simpan)
     public void simpan() {
-        LocalDataManager.getInstance(this).saveStatus(LocalDataManager.Status.IN);
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        profilePresenter.saveProfile(etNama.getText().toString(),etIdUser.getText().toString());
     }
 
     private void nyalakanButtonSimpan() {
@@ -97,5 +110,33 @@ public class ProfileActivity extends AppCompatActivity {
     @OnClick(R.id.iv_back)
     public void back() {
         onBackPressed();
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+        Snackbar.make(etNama.getRootView(),errorMessage,Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showLoading() {
+        progressDialog.setMessage("Mohon Tunggu...");
+        progressDialog.show();
+    }
+
+    @Override
+    public void dismissLoading() {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void onSavedProfile() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onAvatarUploaded() {
+        Snackbar.make(etNama.getRootView(),"Photo berhasil di ubah",Snackbar.LENGTH_LONG).show();
     }
 }
