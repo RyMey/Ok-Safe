@@ -1,8 +1,10 @@
 package id.jeruk.ok_safe.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,9 +20,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import id.jeruk.ok_safe.R;
+import id.jeruk.ok_safe.data.local.LocalDataManager;
+import id.jeruk.ok_safe.presenter.VerificationPresenter;
 import id.jeruk.ok_safe.util.Util;
 
-public class VerificationActivity extends AppCompatActivity {
+public class VerificationActivity extends AppCompatActivity implements VerificationPresenter.View{
     @BindView(R.id.tv_desc_nomor) TextView tvDescNomor;
     @BindView(R.id.iv_cancel) ImageView ivCancel;
     @BindView(R.id.et_kode_verifikasi) EditText etKodeVerifikasi;
@@ -30,6 +34,8 @@ public class VerificationActivity extends AppCompatActivity {
     private int seconds = 59;
     private boolean stopTimer = false;
     private String phoneNumber;
+    private ProgressDialog progressDialog;
+    private VerificationPresenter verificationPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +43,11 @@ public class VerificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_verification);
         ButterKnife.bind(this);
         Util.hideKeyboard(this);
-        phoneNumber = getIntent().getStringExtra("nomorTelepon");
+        phoneNumber = LocalDataManager.getInstance(this).getPhoneNumber();
         tvDescNomor.setText(getString(R.string.desc_nomor_telepon) + " +62" + phoneNumber);
+
+        verificationPresenter = new VerificationPresenter(this,this);
+        progressDialog = new ProgressDialog(this);
 
         tvWaktuTunggu.setText("00:" + seconds);
         timer();
@@ -80,11 +89,19 @@ public class VerificationActivity extends AppCompatActivity {
 
     @OnTextChanged(R.id.et_kode_verifikasi)
     public void setNomorTelepon(CharSequence str) {
-        btKirimUlang.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
-        btKirimUlang.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryText));
-        btKirimUlang.setText("Registrasi");
-        tvWaktuTunggu.setVisibility(View.INVISIBLE);
-        btKirimUlang.setEnabled(true);
+        if(str.length()<=0){
+            btKirimUlang.setBackgroundColor(ContextCompat.getColor(VerificationActivity.this, R.color.colorPrimary));
+            btKirimUlang.setTextColor(ContextCompat.getColor(VerificationActivity.this, R.color.colorWhite));
+            btKirimUlang.setText("Kirim Ulang Kode");
+            tvWaktuTunggu.setVisibility(View.VISIBLE);
+            btKirimUlang.setEnabled(false);
+        }else {
+            btKirimUlang.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+            btKirimUlang.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryText));
+            btKirimUlang.setText("Kirim");
+            tvWaktuTunggu.setVisibility(View.INVISIBLE);
+            btKirimUlang.setEnabled(true);
+        }
 
         if(etKodeVerifikasi.getText().equals(""))
             ivCancel.setVisibility(View.INVISIBLE);
@@ -121,12 +138,9 @@ public class VerificationActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_kirim_ulang)
     public void registrasi() {
-        if (btKirimUlang.getText().equals("Registrasi")) {
+        if (btKirimUlang.getText().equals("Kirim")) {
             Util.hideKeyboard(this);
-            stopTimer = true;
-            Intent intent = new Intent(this, ProfileActivity.class);
-            intent.putExtra("isUbahProfile", false);
-            startActivity(intent);
+            verificationPresenter.checkVerification(etKodeVerifikasi.getText().toString());
         } else {
             btKirimUlang.setBackgroundColor(ContextCompat.getColor(VerificationActivity.this, R.color.colorDivider));
             btKirimUlang.setTextColor(ContextCompat.getColor(VerificationActivity.this, R.color.colorSecondaryText));
@@ -139,4 +153,33 @@ public class VerificationActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onVerified() {
+        stopTimer = true;
+        Intent intent;
+        if(LocalDataManager.getInstance(this).getStatus().equals(LocalDataManager.Status.NEW)){
+            intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("isUbahProfile", false);
+        }else{
+            intent = new Intent(this,MainActivity.class);
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+        Snackbar.make(btKirimUlang.getRootView(),errorMessage,Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showLoading() {
+        progressDialog.setMessage("Mohon Tunggu...");
+        progressDialog.show();
+    }
+
+    @Override
+    public void dismissLoading() {
+        progressDialog.dismiss();
+    }
 }

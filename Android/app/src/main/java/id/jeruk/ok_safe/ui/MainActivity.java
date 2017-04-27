@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.jeruk.ok_safe.R;
+import id.jeruk.ok_safe.data.local.LocalDataManager;
 import id.jeruk.ok_safe.ui.adapter.MainAdapter;
 
 public class MainActivity extends AppCompatActivity
@@ -88,7 +89,10 @@ public class MainActivity extends AppCompatActivity
         }  else if (id == R.id.nav_developer) {
             startActivity(new Intent(this,AboutDeveloperActivity.class));
         } else if (id == R.id.nav_logout) {
-            startActivity(new Intent(this,LoginActivity.class));
+            LocalDataManager.getInstance(this).clearData();
+            Intent intent = new Intent(this,LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

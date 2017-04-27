@@ -1,6 +1,8 @@
 package id.jeruk.ok_safe.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +16,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import id.jeruk.ok_safe.R;
+import id.jeruk.ok_safe.presenter.LoginPresenter;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginPresenter.View {
     @BindView(R.id.et_nomor_telepon) EditText etNomorTelepon;
     @BindView(R.id.bt_masuk) Button btMasuk;
     @BindView(R.id.iv_cancel) ImageView ivCancel;
+
+    private LoginPresenter loginPresenter;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +33,15 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         etNomorTelepon.setText(getIntent().getStringExtra("nomorTelepon"));
+
+        loginPresenter = new LoginPresenter(this, this);
+        progressDialog = new ProgressDialog(this);
     }
 
     @OnClick(R.id.bt_masuk)
     public void masuk() {
         if (etNomorTelepon.getText().length() >= 10) {
-            Intent loginIntent = new Intent(this,VerificationActivity.class);
-            loginIntent.putExtra("nomorTelepon", etNomorTelepon.getText().toString());
-            startActivity(loginIntent);
+            loginPresenter.login(etNomorTelepon.getText().toString());
         }
     }
 
@@ -56,5 +63,28 @@ public class LoginActivity extends AppCompatActivity {
             ivCancel.setVisibility(View.INVISIBLE);
             btMasuk.setEnabled(false);
         }
+    }
+
+    @Override
+    public void onLoginSuccess() {
+        Intent intent = new Intent(this, VerificationActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+        Snackbar.make(etNomorTelepon.getRootView(),errorMessage,Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showLoading() {
+        progressDialog.setMessage("Mohon Tunggu...");
+        progressDialog.show();
+    }
+
+    @Override
+    public void dismissLoading() {
+        progressDialog.dismiss();
     }
 }

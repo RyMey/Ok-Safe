@@ -1,16 +1,14 @@
 package id.jeruk.ok_safe.ui;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.support.v7.app.AlertDialog;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import id.jeruk.ok_safe.R;
+import id.jeruk.ok_safe.data.local.LocalDataManager;
 import id.jeruk.ok_safe.util.Util;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -27,8 +26,10 @@ public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.bt_simpan) Button btSimpan;
     @BindView(R.id.iv_back) ImageView ivBack;
     @BindView(R.id.tv_description) TextView tvDesc;
+    @BindView(R.id.tv_phoneNumber) TextView tvPhoneNumber;
 
     private boolean isUbahProfile = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +38,12 @@ public class ProfileActivity extends AppCompatActivity {
         Util.hideKeyboard(this);
 
         isUbahProfile = getIntent().getExtras().getBoolean("isUbahProfile");
+        tvPhoneNumber.setText(String.format("%s%s", getString(R.string.desc_nomor_telepon_profile), LocalDataManager.getInstance(this).getPhoneNumber()));
 
-        if(isUbahProfile){
+        if (isUbahProfile) {
             ivBack.setVisibility(View.VISIBLE);
             tvDesc.setVisibility(View.GONE);
-        }else {
+        } else {
             ivBack.setVisibility(View.GONE);
             tvDesc.setVisibility(View.VISIBLE);
         }
@@ -73,9 +75,11 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.bt_simpan)
-    public void simpan(){
-        startActivity(new Intent(this,MainActivity.class));
-
+    public void simpan() {
+        LocalDataManager.getInstance(this).saveStatus(LocalDataManager.Status.IN);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void nyalakanButtonSimpan() {
@@ -91,7 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.iv_back)
-    public void back(){
+    public void back() {
         onBackPressed();
     }
 }
