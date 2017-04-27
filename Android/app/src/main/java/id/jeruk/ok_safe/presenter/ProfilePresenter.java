@@ -20,13 +20,20 @@ public class ProfilePresenter extends BasePresenter<ProfilePresenter.View>{
 
     public void saveProfile(String name, String id){
         view.showLoading();
-        User user = new User(name,id,null,LocalDataManager.getInstance(context).getPhoneNumber());
+        User user = LocalDataManager.getInstance(context).getUser();
+        if(user==null)
+            user = new User(name,id,null,LocalDataManager.getInstance(context).getPhoneNumber());
+        else{
+            user.setName(name);
+            user.setId(id);
+        }
         LocalDataManager.getInstance(context).saveUser(user);
+        LocalDataManager.getInstance(context).saveStatus(LocalDataManager.Status.IN);
         view.onSavedProfile();
         view.dismissLoading();
     }
 
-    public void uploadAvatar(File avatar){
+    public void uploadAvatar(String avatar){
         view.showLoading();
         User user;
         if(LocalDataManager.getInstance(context).getUser()!= null) {
