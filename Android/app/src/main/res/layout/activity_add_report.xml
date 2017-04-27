@@ -14,8 +14,7 @@
 
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1">
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -37,6 +36,8 @@
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
                     android:paddingStart="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:text="@string/title_tambah_laporan"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     android:textColor="@color/colorWhite"/>
@@ -49,8 +50,8 @@
                     android:paddingBottom="4dp"
                     android:paddingEnd="12dp"
                     android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:paddingStart="12dp"
+                    android:paddingRight="14dp"
+                    android:paddingStart="14dp"
                     android:paddingTop="4dp"
                     android:src="@drawable/ic_menu_send"
                     android:tint="@color/colorWhite"/>
