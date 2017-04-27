@@ -1,24 +1,31 @@
 package id.jeruk.ok_safe.ui;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.jeruk.ok_safe.R;
 import id.jeruk.ok_safe.data.local.LocalDataManager;
+import id.jeruk.ok_safe.data.model.User;
 import id.jeruk.ok_safe.ui.adapter.MainAdapter;
+import id.jeruk.ok_safe.util.Util;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,8 +35,14 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
     @BindView(R.id.nav_view) NavigationView navigationView;
+    private TextView navNama;
+    private TextView navStatus;
+    private TextView navId;
+    private ImageView navPhoto;
 
     private String[] mDataset = {"Satu", "Dua", "Tuga"};
+    private Drawable img;
+    private View hView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +69,23 @@ public class MainActivity extends AppCompatActivity
         RecyclerView.Adapter mAdapter = new MainAdapter(mDataset);
         mRecyclerView.setAdapter(mAdapter);
 
+        hView = navigationView.getHeaderView(0);
+
+        navNama = (TextView) hView.findViewById(R.id.tv_nav_nama);
+        navStatus = (TextView) hView.findViewById(R.id.tv_nav_valid_status);
+        navId = (TextView) hView.findViewById(R.id.tv_nav_id);
+        navPhoto = (ImageView) hView.findViewById(R.id.iv_nav_photo);
+
+        User user =  LocalDataManager.getInstance(this).getUser();
+
+        navNama.setText(user.getName());
+        navId.setText(user.getId());
+        Log.d("ini user", " " + user);
+        img = Util.LoadImageFromWebOperations(user.getImgUrl());
+
+        if (img != null) {
+            navPhoto.setImageDrawable(img);
+        }
 
     }
 
@@ -79,18 +109,18 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("isUbahProfile", true);
             startActivity(intent);
         } else if (id == R.id.nav_reward) {
-            startActivity(new Intent(this,RewardActivity.class));
-        }else if (id == R.id.nav_map) {
-            startActivity(new Intent(this,MapActivity.class));
+            startActivity(new Intent(this, RewardActivity.class));
+        } else if (id == R.id.nav_map) {
+            startActivity(new Intent(this, MapActivity.class));
         } else if (id == R.id.nav_help) {
-            startActivity(new Intent(this,HelpActivity.class));
+            startActivity(new Intent(this, HelpActivity.class));
         } else if (id == R.id.nav_tentang) {
-            startActivity(new Intent(this,AboutActivity.class));
-        }  else if (id == R.id.nav_developer) {
-            startActivity(new Intent(this,AboutDeveloperActivity.class));
+            startActivity(new Intent(this, AboutActivity.class));
+        } else if (id == R.id.nav_developer) {
+            startActivity(new Intent(this, AboutDeveloperActivity.class));
         } else if (id == R.id.nav_logout) {
             LocalDataManager.getInstance(this).clearData();
-            Intent intent = new Intent(this,LoginActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
@@ -101,7 +131,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @OnClick(R.id.fab)
-    public void tambahLaporan(){
-        startActivity(new Intent(this,AddReportActivity.class));
+    public void tambahLaporan() {
+        startActivity(new Intent(this, AddReportActivity.class));
     }
 }
