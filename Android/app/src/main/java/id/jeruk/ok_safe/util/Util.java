@@ -24,8 +24,8 @@ import id.jeruk.ok_safe.data.local.LocalDataManager;
  */
 
 public class Util {
-    public static final int CAMERA_REQUEST = 122312;
-    public static final int GALLERY_REQUEST = 232134;
+    public static final int CAMERA_REQUEST = 172;
+    public static final int GALLERY_REQUEST = 161;
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
