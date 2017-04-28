@@ -156,6 +156,8 @@ public class AddReportActivity extends AppCompatActivity implements AddReportPre
         } else if (TextUtils.isEmpty(desc)) {
             etReport.setError("Mohon isi detail laporan!");
             etReport.requestFocus();
+        } else if (photos.size() <= 0) {
+            showError("Mohon isi foto laporan minimal satu!");
         } else {
             addReportPresenter.postReport(location, desc, photos);
         }
@@ -179,7 +181,6 @@ public class AddReportActivity extends AppCompatActivity implements AddReportPre
 
     @Override
     public void onReported(Report report) {
-        Log.d("AddReportActivity", "Reported: " + report);
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
