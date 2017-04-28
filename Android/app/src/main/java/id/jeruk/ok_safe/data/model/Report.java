@@ -1,27 +1,29 @@
 package id.jeruk.ok_safe.data.model;
 
+import java.util.List;
+
 /**
  * Created by RyMey on 4/24/17.
  */
 
 public class Report {
-    private String id;
+    private int id;
     private String location;
     private String desc;
-    private String photoUrl[];
+    private List<String> photoUrls;
 
-    public Report(String id,String location, String desc, String[] photoUrl) {
+    public Report(int id,String location, String desc, List<String> photoUrls) {
         this.id = id;
         this.location = location;
         this.desc = desc;
-        this.photoUrl = photoUrl;
+        this.photoUrls = photoUrls;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -41,11 +43,37 @@ public class Report {
         this.desc = desc;
     }
 
-    public String[] getPhotoUrl() {
-        return photoUrl;
+    public List<String> getPhotoUrls() {
+        return photoUrls;
     }
 
-    public void setPhotoUrl(String[] photoUrl) {
-        this.photoUrl = photoUrl;
+    public void setPhotoUrls(List<String> photoUrls) {
+        this.photoUrls = photoUrls;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Report report = (Report) o;
+
+        return id == report.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Report{" +
+                "id=" + id +
+                ", location='" + location + '\'' +
+                ", desc='" + desc + '\'' +
+                ", photoUrls=" + photoUrls +
+                '}';
     }
 }

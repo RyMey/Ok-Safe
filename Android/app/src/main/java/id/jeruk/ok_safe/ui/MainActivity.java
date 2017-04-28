@@ -26,8 +26,11 @@ import butterknife.OnClick;
 import id.jeruk.ok_safe.R;
 import id.jeruk.ok_safe.data.local.LocalDataManager;
 import id.jeruk.ok_safe.data.model.User;
+import id.jeruk.ok_safe.data.remote.RestApi;
 import id.jeruk.ok_safe.ui.adapter.MainAdapter;
 import id.jeruk.ok_safe.util.Util;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -88,6 +91,14 @@ public class MainActivity extends AppCompatActivity
         }else{
             navPhoto.setImageResource(R.drawable.ic_person);
         }
+
+        RestApi.getInstance(this)
+                .getReports()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(reports -> {
+                    Log.d("MainActivity", String.valueOf(reports));
+                });
     }
 
     @Override
