@@ -3,6 +3,7 @@ package id.jeruk.ok_safe.ui;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,6 +27,7 @@ import id.jeruk.ok_safe.R;
 import id.jeruk.ok_safe.data.local.LocalDataManager;
 import id.jeruk.ok_safe.data.model.User;
 import id.jeruk.ok_safe.presenter.ProfilePresenter;
+import id.jeruk.ok_safe.util.FileUtil;
 import id.jeruk.ok_safe.util.Util;
 
 public class ProfileActivity extends AppCompatActivity implements ProfilePresenter.View{
@@ -89,13 +93,11 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setItems(inputPhotoOptions, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) Util.openCamera(ProfileActivity.this);
-                else if (which == 1) Util.openGallery(ProfileActivity.this);
+                if (which == 0) Util.openCamera(ProfileActivity.this,11);
+                else if (which == 1) Util.openGallery(ProfileActivity.this,12);
                 dialog.dismiss();
             }
         }).show();
-
-        profilePresenter.uploadAvatar("dummy data");
     }
 
     @OnClick(R.id.bt_simpan)
@@ -117,7 +119,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @OnClick(R.id.iv_back)
     public void back() {
-        startActivity(new Intent(this, MainActivity.class));;
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     @Override
@@ -150,5 +154,18 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     @Override
     public void onAvatarUploaded() {
         Snackbar.make(etNama.getRootView(),"Photo berhasil diubah",Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            Glide.with(this).load(FileUtil.from(this, Uri.parse(LocalDataManager.getInstance(this)
+                    .getLastImagePath()))).into(ivPhoto);
+
+            profilePresenter.uploadAvatar("dummy data");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
