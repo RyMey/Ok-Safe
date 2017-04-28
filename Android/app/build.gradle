@@ -60,4 +60,7 @@ dependencies {
 
     //gson
     compile 'com.google.code.gson:gson:2.8.0'
+
+    //Location
+    compile 'com.google.android.gms:play-services-places:10.2.1'
 }
