@@ -117,6 +117,7 @@
                 android:layout_below="@id/tv_laporan"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
+                app:autoPlay="false"
                 app:fillColor="#FFFFFFFF"
                 app:pageColor="#00000000"
                 app:radius="6dp"

@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.synnapps.carouselview.CarouselView;
 
 import butterknife.BindView;
+import id.jeruk.ok_safe.OkSafeApp;
 import id.jeruk.ok_safe.R;
 import id.jeruk.ok_safe.data.local.LocalDataManager;
 import id.jeruk.ok_safe.data.model.Report;
@@ -28,7 +29,7 @@ public class ReportViewHolder extends BaseItemViewHolder<Report> {
 
     @Override
     public void bind(Report report) {
-        Glide.with(itemView.getContext())
+        Glide.with(OkSafeApp.getInstance())
                 .load(LocalDataManager.getInstance(itemView.getContext()).getUser().getImgUrl())
                 .error(R.drawable.ic_person)
                 .placeholder(R.drawable.ic_person)
@@ -41,7 +42,7 @@ public class ReportViewHolder extends BaseItemViewHolder<Report> {
 
         carouselView.setPageCount(report.getPhotoUrls().size());
 
-        carouselView.setImageListener((position, imageView) -> Glide.with(itemView.getContext())
+        carouselView.setImageListener((position, imageView) -> Glide.with(OkSafeApp.getInstance())
                 .load(report.getPhotoUrls().get(position))
                 .into(imageView));
     }

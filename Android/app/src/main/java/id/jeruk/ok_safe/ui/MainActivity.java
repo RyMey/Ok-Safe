@@ -26,6 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import id.jeruk.ok_safe.OkSafeApp;
 import id.jeruk.ok_safe.R;
 import id.jeruk.ok_safe.data.local.LocalDataManager;
 import id.jeruk.ok_safe.data.model.Report;
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity
         navId.setText(user.getId());
         navStatus.setText(user.getStatus());
         if (user.getImgUrl() != null) {
-            Glide.with(this).load(user.getImgUrl()).centerCrop().into(navPhoto);
+            Glide.with(OkSafeApp.getInstance()).load(user.getImgUrl()).centerCrop().into(navPhoto);
         } else {
             navPhoto.setImageResource(R.drawable.ic_person);
         }
@@ -143,6 +144,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, AboutDeveloperActivity.class));
         } else if (id == R.id.nav_logout) {
             LocalDataManager.getInstance(this).clearData();
+            RestApi.getInstance(this).logout();
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

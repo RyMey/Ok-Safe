@@ -26,6 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import id.jeruk.ok_safe.OkSafeApp;
 import id.jeruk.ok_safe.R;
 import id.jeruk.ok_safe.data.local.LocalDataManager;
 import id.jeruk.ok_safe.data.model.Report;
@@ -136,13 +137,13 @@ public class AddReportActivity extends AppCompatActivity implements AddReportPre
         }
         switch (index) {
             case 1:
-                Glide.with(this).load(file).into(ivPhoto1);
+                Glide.with(OkSafeApp.getInstance()).load(file).into(ivPhoto1);
                 break;
             case 2:
-                Glide.with(this).load(file).into(ivPhoto2);
+                Glide.with(OkSafeApp.getInstance()).load(file).into(ivPhoto2);
                 break;
             case 3:
-                Glide.with(this).load(file).into(ivPhoto3);
+                Glide.with(OkSafeApp.getInstance()).load(file).into(ivPhoto3);
                 break;
         }
     }
@@ -156,6 +157,8 @@ public class AddReportActivity extends AppCompatActivity implements AddReportPre
         } else if (TextUtils.isEmpty(desc)) {
             etReport.setError("Mohon isi detail laporan!");
             etReport.requestFocus();
+        } else if (photos.size() <= 0) {
+            showError("Mohon isi foto laporan minimal satu!");
         } else {
             addReportPresenter.postReport(location, desc, photos);
         }
@@ -179,7 +182,6 @@ public class AddReportActivity extends AppCompatActivity implements AddReportPre
 
     @Override
     public void onReported(Report report) {
-        Log.d("AddReportActivity", "Reported: " + report);
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
