@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, AboutDeveloperActivity.class));
         } else if (id == R.id.nav_logout) {
             LocalDataManager.getInstance(this).clearData();
+            RestApi.getInstance(this).logout();
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
