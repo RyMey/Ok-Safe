@@ -18,6 +18,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,7 +43,6 @@ public class MainActivity extends AppCompatActivity
     private ImageView navPhoto;
 
     private String[] mDataset = {"Satu", "Dua", "Tuga"};
-    private Drawable img;
     private View hView;
 
     @Override
@@ -80,11 +81,12 @@ public class MainActivity extends AppCompatActivity
 
         navNama.setText(user.getName());
         navId.setText(user.getId());
-        Log.d("ini user", " " + user);
-        img = Util.LoadImageFromWebOperations(user.getImgUrl());
-
-        if (img != null) {
-            navPhoto.setImageDrawable(img);
+        navStatus.setText(user.getStatus());
+        Log.d("ini_user", " " + user);
+        if (user.getImgUrl() != null) {
+            Glide.with(this).load(user.getImgUrl()).centerCrop().into(navPhoto);
+        }else{
+            navPhoto.setImageResource(R.drawable.ic_person);
         }
 
     }

@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,6 +33,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     @BindView(R.id.iv_back) ImageView ivBack;
     @BindView(R.id.tv_description) TextView tvDesc;
     @BindView(R.id.tv_phoneNumber) TextView tvPhoneNumber;
+    @BindView(R.id.iv_photo) ImageView ivPhoto;
 
     private boolean isUbahProfile = false;
     private ProfilePresenter profilePresenter;
@@ -61,6 +64,11 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         if(user!=null){
             etNama.setText(user.getName());
             etIdUser.setText(user.getId());
+            if (user.getImgUrl() != null) {
+                Glide.with(this).load(user.getImgUrl()).centerCrop().into(ivPhoto);
+            }else{
+                ivPhoto.setImageResource(R.drawable.ic_person);
+            }
         }
     }
 
@@ -109,7 +117,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @OnClick(R.id.iv_back)
     public void back() {
-        onBackPressed();
+        startActivity(new Intent(this, MainActivity.class));;
     }
 
     @Override
@@ -141,6 +149,6 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @Override
     public void onAvatarUploaded() {
-        Snackbar.make(etNama.getRootView(),"Photo berhasil di ubah",Snackbar.LENGTH_LONG).show();
+        Snackbar.make(etNama.getRootView(),"Photo berhasil diubah",Snackbar.LENGTH_LONG).show();
     }
 }
