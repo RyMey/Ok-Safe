@@ -18,6 +18,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -80,13 +82,7 @@ public class MainActivity extends AppCompatActivity
 
         navNama.setText(user.getName());
         navId.setText(user.getId());
-        Log.d("ini user", " " + user);
-        img = Util.LoadImageFromWebOperations(user.getImgUrl());
-
-        if (img != null) {
-            navPhoto.setImageDrawable(img);
-        }
-
+        Glide.with(this).load(user.getImgUrl()).into(navPhoto);
     }
 
     @Override

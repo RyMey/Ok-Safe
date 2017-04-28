@@ -54,6 +54,14 @@ public class LocalDataManager {
         return Status.valueOf(sharedPreferences.getString("status", Status.OUT.name()));
     }
 
+    public void cacheLastImagePath(String path) {
+        sharedPreferences.edit().putString("last_image_path", path).apply();
+    }
+
+    public String getLastImagePath() {
+        return sharedPreferences.getString("last_image_path", "");
+    }
+
     public void clearData(){
         sharedPreferences.edit().clear().apply();
     }
