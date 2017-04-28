@@ -30,7 +30,7 @@ import id.jeruk.ok_safe.presenter.ProfilePresenter;
 import id.jeruk.ok_safe.util.FileUtil;
 import id.jeruk.ok_safe.util.Util;
 
-public class ProfileActivity extends AppCompatActivity implements ProfilePresenter.View{
+public class ProfileActivity extends AppCompatActivity implements ProfilePresenter.View {
     @BindView(R.id.et_nama) EditText etNama;
     @BindView(R.id.et_id_user) EditText etIdUser;
     @BindView(R.id.bt_simpan) Button btSimpan;
@@ -43,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     private ProfilePresenter profilePresenter;
     private ProgressDialog progressDialog;
     private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,16 +62,16 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
             tvDesc.setVisibility(View.VISIBLE);
         }
 
-        profilePresenter = new ProfilePresenter(this,this);
+        profilePresenter = new ProfilePresenter(this, this);
         progressDialog = new ProgressDialog(this);
         user = LocalDataManager.getInstance(this).getUser();
 
-        if(user!=null){
+        if (user != null) {
             etNama.setText(user.getName());
             etIdUser.setText(user.getId());
             if (user.getImgUrl() != null) {
                 Glide.with(this).load(user.getImgUrl()).centerCrop().into(ivPhoto);
-            }else{
+            } else {
                 ivPhoto.setImageResource(R.drawable.ic_person);
             }
         }
@@ -93,8 +94,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setItems(inputPhotoOptions, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) Util.openCamera(ProfileActivity.this,11);
-                else if (which == 1) Util.openGallery(ProfileActivity.this,12);
+                if (which == 0) Util.openCamera(ProfileActivity.this, 11);
+                else if (which == 1) Util.openGallery(ProfileActivity.this, 12);
                 dialog.dismiss();
             }
         }).show();
@@ -102,7 +103,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @OnClick(R.id.bt_simpan)
     public void simpan() {
-        profilePresenter.saveProfile(etNama.getText().toString(),etIdUser.getText().toString());
+        profilePresenter.saveProfile(etNama.getText().toString(), etIdUser.getText().toString());
     }
 
     private void nyalakanButtonSimpan() {
@@ -126,7 +127,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @Override
     public void showError(String errorMessage) {
-        Snackbar.make(etNama.getRootView(),errorMessage,Snackbar.LENGTH_LONG).show();
+        Snackbar.make(etNama.getRootView(), errorMessage, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -142,9 +143,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @Override
     public void onSavedProfile() {
-        Snackbar.make(etNama.getRootView(),"Profil berhasil di ubah",Snackbar.LENGTH_LONG).show();
+        Snackbar.make(etNama.getRootView(), "Profil berhasil di ubah", Snackbar.LENGTH_LONG).show();
 
-        if(ivBack.getVisibility()!=View.VISIBLE) {
+        if (ivBack.getVisibility() != View.VISIBLE) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -153,19 +154,26 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @Override
     public void onAvatarUploaded() {
-        Snackbar.make(etNama.getRootView(),"Photo berhasil diubah",Snackbar.LENGTH_LONG).show();
+        Snackbar.make(etNama.getRootView(), "Photo berhasil diubah", Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
-            Glide.with(this).load(FileUtil.from(this, Uri.parse(LocalDataManager.getInstance(this)
-                    .getLastImagePath()))).into(ivPhoto);
-
-            profilePresenter.uploadAvatar("dummy data");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (resultCode == RESULT_OK && requestCode % 10 == 1) {
+            try {
+                Glide.with(this).load(FileUtil.from(this, Uri.parse(LocalDataManager.getInstance(this)
+                        .getLastImagePath()))).into(ivPhoto);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (resultCode == RESULT_OK && requestCode % 10 == 2) {
+            try {
+                Glide.with(this).load(FileUtil.from(this, data.getData()))
+                        .into(ivPhoto);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
