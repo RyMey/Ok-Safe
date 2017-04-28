@@ -79,7 +79,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/field_message"
+            android:id="@+id/et_komentar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -104,7 +104,8 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingStart="8dp"
-            android:src="@drawable/ic_send"/>
+            android:src="@drawable/ic_send"
+            android:tint="@color/colorDivider"/>
 
     </RelativeLayout>
 </LinearLayout>
