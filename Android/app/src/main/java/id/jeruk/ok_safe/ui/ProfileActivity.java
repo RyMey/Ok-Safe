@@ -1,7 +1,6 @@
 package id.jeruk.ok_safe.ui;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import id.jeruk.ok_safe.OkSafeApp;
 import id.jeruk.ok_safe.R;
 import id.jeruk.ok_safe.data.local.LocalDataManager;
 import id.jeruk.ok_safe.data.model.User;
@@ -70,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
             etNama.setText(user.getName());
             etIdUser.setText(user.getId());
             if (user.getImgUrl() != null) {
-                Glide.with(this).load(user.getImgUrl()).centerCrop().into(ivPhoto);
+                Glide.with(OkSafeApp.getInstance()).load(user.getImgUrl()).centerCrop().into(ivPhoto);
             } else {
                 ivPhoto.setImageResource(R.drawable.ic_person);
             }
@@ -92,12 +92,10 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         String[] inputPhotoOptions = {"From Camera", "From Gallery"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setItems(inputPhotoOptions, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) Util.openCamera(ProfileActivity.this, 11);
-                else if (which == 1) Util.openGallery(ProfileActivity.this, 12);
-                dialog.dismiss();
-            }
+        builder.setItems(inputPhotoOptions, (dialog, which) -> {
+            if (which == 0) Util.openCamera(ProfileActivity.this);
+            else if (which == 1) Util.openGallery(ProfileActivity.this);
+            dialog.dismiss();
         }).show();
     }
 
@@ -160,16 +158,16 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode % 10 == 1) {
+        if (resultCode == RESULT_OK && requestCode == Util.CAMERA_REQUEST) {
             try {
-                Glide.with(this).load(FileUtil.from(this, Uri.parse(LocalDataManager.getInstance(this)
+                Glide.with(OkSafeApp.getInstance()).load(FileUtil.from(this, Uri.parse(LocalDataManager.getInstance(this)
                         .getLastImagePath()))).into(ivPhoto);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if (resultCode == RESULT_OK && requestCode % 10 == 2) {
+        } else if (resultCode == RESULT_OK && requestCode == Util.GALLERY_REQUEST) {
             try {
-                Glide.with(this).load(FileUtil.from(this, data.getData()))
+                Glide.with(OkSafeApp.getInstance()).load(FileUtil.from(this, data.getData()))
                         .into(ivPhoto);
             } catch (IOException e) {
                 e.printStackTrace();
