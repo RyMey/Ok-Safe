@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity
         }else{
             navPhoto.setImageResource(R.drawable.ic_person);
         }
-
     }
 
     @Override

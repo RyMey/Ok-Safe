@@ -72,6 +72,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/pick_location"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorGray"
@@ -91,6 +92,7 @@
                 android:tint="@color/colorPrimaryText"/>
 
             <TextView
+                android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
