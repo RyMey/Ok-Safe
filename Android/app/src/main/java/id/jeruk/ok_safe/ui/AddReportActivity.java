@@ -129,7 +129,11 @@ public class AddReportActivity extends AppCompatActivity implements AddReportPre
     }
 
     private void addImageFile(File file, int index) {
-        photos.set(index - 1, file);
+        if (photos.size() < index) {
+            photos.add(file);
+        } else {
+            photos.set(index - 1, file);
+        }
         switch (index) {
             case 1:
                 Glide.with(this).load(file).into(ivPhoto1);

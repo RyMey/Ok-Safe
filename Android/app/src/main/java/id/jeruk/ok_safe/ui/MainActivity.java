@@ -1,10 +1,11 @@
 package id.jeruk.ok_safe.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,33 +21,41 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.jeruk.ok_safe.R;
 import id.jeruk.ok_safe.data.local.LocalDataManager;
+import id.jeruk.ok_safe.data.model.Report;
 import id.jeruk.ok_safe.data.model.User;
 import id.jeruk.ok_safe.data.remote.RestApi;
-import id.jeruk.ok_safe.ui.adapter.MainAdapter;
-import id.jeruk.ok_safe.util.Util;
+import id.jeruk.ok_safe.presenter.MainPresenter;
+import id.jeruk.ok_safe.ui.adapter.ReportsAdapter;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainPresenter.View {
 
     @BindView(R.id.rv_main) RecyclerView mRecyclerView;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
     @BindView(R.id.nav_view) NavigationView navigationView;
+    @BindView(R.id.iv_ph_main) ImageView placeHolder;
+
     private TextView navNama;
     private TextView navStatus;
     private TextView navId;
     private ImageView navPhoto;
 
-    private String[] mDataset = {"Satu", "Dua", "Tuga"};
     private View hView;
+
+    private MainPresenter mainPresenter;
+    private ReportsAdapter reportsAdapter;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +79,10 @@ public class MainActivity extends AppCompatActivity
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        RecyclerView.Adapter mAdapter = new MainAdapter(mDataset);
-        mRecyclerView.setAdapter(mAdapter);
+        reportsAdapter = new ReportsAdapter(this);
+        mRecyclerView.setAdapter(reportsAdapter);
+        reportsAdapter.setOnItemClickListener((view, position) ->
+                onItemClick(reportsAdapter.getData().get(position)));
 
         hView = navigationView.getHeaderView(0);
 
@@ -80,25 +91,25 @@ public class MainActivity extends AppCompatActivity
         navId = (TextView) hView.findViewById(R.id.tv_nav_id);
         navPhoto = (ImageView) hView.findViewById(R.id.iv_nav_photo);
 
-        User user =  LocalDataManager.getInstance(this).getUser();
+        User user = LocalDataManager.getInstance(this).getUser();
 
         navNama.setText(user.getName());
         navId.setText(user.getId());
         navStatus.setText(user.getStatus());
-        Log.d("ini_user", " " + user);
         if (user.getImgUrl() != null) {
             Glide.with(this).load(user.getImgUrl()).centerCrop().into(navPhoto);
-        }else{
+        } else {
             navPhoto.setImageResource(R.drawable.ic_person);
         }
 
-        RestApi.getInstance(this)
-                .getReports()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(reports -> {
-                    Log.d("MainActivity", String.valueOf(reports));
-                });
+        progressDialog = new ProgressDialog(this);
+
+        mainPresenter = new MainPresenter(this, this);
+        mainPresenter.loadReports();
+    }
+
+    private void onItemClick(Report report) {
+
     }
 
     @Override
@@ -145,5 +156,33 @@ public class MainActivity extends AppCompatActivity
     @OnClick(R.id.fab)
     public void tambahLaporan() {
         startActivity(new Intent(this, AddReportActivity.class));
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+        Snackbar.make(mRecyclerView.getRootView(), errorMessage, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showLoading() {
+        progressDialog.setMessage("Mohon Tunggu...");
+        progressDialog.show();
+    }
+
+    @Override
+    public void dismissLoading() {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void showReports(List<Report> reports) {
+        reportsAdapter.addOrUpdate(reports);
+        if (reportsAdapter.getItemCount() > 0) {
+            placeHolder.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        } else {
+            placeHolder.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+        }
     }
 }
