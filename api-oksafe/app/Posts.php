@@ -4,16 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model; 
 
-class TvShow extends Model{
+class Posts extends Model{
 
   /**
    * Table database
    */
-  protected $table = 'tv_show';
+  protected $table = 'posts';
 
   /**
    * The attributes that are mass assignable.
    *
    * @var array
    */
+  protected $fillable = [
+  	'user_id','judul','isi','gambar','latitude','longitude'
+  ];
+
 }

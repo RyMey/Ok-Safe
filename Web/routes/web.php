@@ -21,13 +21,13 @@ Route::get ('/', function () {
 	return redirect('login');
 });
 
-Route::get('/login','LandingController@index');
+Route::get('/admin','HomeController@index');
 
-Route::group(['middleware' => 'auth'], function(){
+/*Route::group(['middleware' => 'auth'], function(){
 	Route::group(['prefix' => 'admin'], function(){
 		Route::get('/issue', 'PostController@index');
 	});
-});
+});*/
 
 Route::get('/sms/send/{to}', function(\Nexmo\Client $nexmo, $to){
 	$message = $nexmo->verify()->start([

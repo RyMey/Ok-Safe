@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model; 
 
-class CategoryMovie extends Model{
+class Comment extends Model{
 
   /**
    * Table database
    */
-  protected $table = 'category_movies';
+  protected $table = 'comments';
 
   /**
    * The attributes that are mass assignable.
@@ -17,11 +17,7 @@ class CategoryMovie extends Model{
    * @var array
    */
   protected $fillable = [
-  		'name'
+  	'id_post','komen'
   ];
 
-
-  protected $hidden = [
-      'created_at', 'updated_at'
-  ];
 }
