@@ -20,13 +20,22 @@ public class ProfilePresenter extends BasePresenter<ProfilePresenter.View>{
 
     public void saveProfile(String name, String id){
         view.showLoading();
-        User user = new User(name,id,null,LocalDataManager.getInstance(context).getPhoneNumber());
+        User user = LocalDataManager.getInstance(context).getUser();
+        if(user==null)
+            user = new User(name,id,null,LocalDataManager.getInstance(context).getPhoneNumber());
+        else{
+            user.setName(name);
+            user.setId(id);
+        }
+        user.setImgUrl("http://res.cloudinary.com/zelory/image/upload/v1464394613/r4xaqq8v5szfsc7nw9ux.jpg");
+        user.setStatus("0/0");
         LocalDataManager.getInstance(context).saveUser(user);
+        LocalDataManager.getInstance(context).saveStatus(LocalDataManager.Status.IN);
         view.onSavedProfile();
         view.dismissLoading();
     }
 
-    public void uploadAvatar(File avatar){
+    public void uploadAvatar(String avatar){
         view.showLoading();
         User user;
         if(LocalDataManager.getInstance(context).getUser()!= null) {
@@ -34,7 +43,8 @@ public class ProfilePresenter extends BasePresenter<ProfilePresenter.View>{
         }else{
             user = new User(null,null,null,LocalDataManager.getInstance(context).getPhoneNumber());
         }
-        user.setImgUrl("http://res.cloudinary.com/zelory/image/upload/c_scale,h_813/v1464394688/bztiizxw6dwrycw9aahz.jpg");
+        user.setImgUrl("http://res.cloudinary.com/zelory/image/upload/v1464394613/r4xaqq8v5szfsc7nw9ux.jpg");
+        user.setStatus("0/0");
         LocalDataManager.getInstance(context).saveUser(user);
         view.onAvatarUploaded();
         view.dismissLoading();
