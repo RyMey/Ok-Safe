@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>OK-Safe | User</title>
+    <title>OK-Safe | Profile</title>
     <link rel="icon" href="dist/img/ic_launcher.png">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -40,16 +40,16 @@
             <nav class="navbar navbar-static-top">
                 <!-- Header rata kiri -->
                 <!--
-                <ul class="nav navbar-nav">
-                  <li class="messages-menu"><a href="#">Your Logo</a></li>
-                </ul>
-                -->
+      <ul class="nav navbar-nav">
+        <li class="messages-menu"><a href="#">Your Logo</a></li>
+      </ul>
+      -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="messages-menu"><a href="dashboard.html">Dashboard</a></li>
                         <li class="messages-menu"><a href="laporan.html">Laporan</a></li>
-						<li class="messages-menu active"><a href="user.html">User</a></li>
+						<li class="messages-menu"><a href="user.html">User</a></li>
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
                             <!-- Profile Toggle Button -->
@@ -70,7 +70,6 @@
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
-
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
@@ -92,82 +91,75 @@
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
-                <h1>Users</h1>
+                <h1>
+					Edit User
+				</h1>
             </section>
-
-            <!-- Main content -->
-            <section class="content">
+			<!-- Main content -->
+			<section class="content">
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="box">
+                        <div class="box box-primary">
                             <div class="box-header with-border">
                                 <h3 class="box-title">&nbsp;</h3>
                                 <div class="box-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                                        <div class="input-group-btn">
-                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <!-- /.box-header -->
-                            <div class="box-body">
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>Nama Lengkap</th>
-                                        <th>Email</th>
-                                        <th>Alamat</th>
-                                        <th>Status</th>
-                                        <th>Edit</th>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>ismail</td>
-                                        <td>ismailadima@gmail.com</td>
-                                        <td><a href="#" style="color:0d0000">Jl. Padjajaran</a>
-                                        </td>
-                                        <td>Admin</td>
-                                        <td><a href="editUser.html"><i class="fa fa-lg fa-edit"></i></a> <a href="#" onclick="alert('Are you sure want to block this user?')"><i class="fa fa-lg fa-ban"></i></a>
-                                        </td>
-                                    </tr>
-									<tr>
-                                        <td>2</td>
-                                        <td>faisal</td>
-                                        <td>ismailadima@gmail.com</td>
-                                        <td><a href="#" style="color:0d0000">Jl. Padjajaran</a>
-                                        </td>
-                                        <td>Admin</td>
-                                        <td><a href="editUser.html"><i class="fa fa-lg fa-edit"></i></a> <a href="#" onclick="alert('Are you sure want to block this user?')"><i class="fa fa-lg fa-ban"></i></a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <!-- /.box-body -->
-                            <div class="box-footer clearfix">
-                                <ul class="pagination pagination-sm no-margin pull-right">
-                                    <li><a href="#">&laquo;</a>
-                                    </li>
-                                    <li><a href="#">1</a>
-                                    </li>
-                                    <li><a href="#">2</a>
-                                    </li>
-                                    <li><a href="#">3</a>
-                                    </li>
-                                    <li><a href="#">&raquo;</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- /.box -->
-                    </div>
-                    <!-- /.col -->
-                </div>
-            </section>
-            <!-- /.content -->
+                        <div class="box-body">
+							<div class="col-lg-10">
+								<div class="row">
+									<form class="form-horizontal">
+									  <div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Name</label>
+
+										<div class="col-sm-10">
+										  <input type="email" class="form-control" id="inputName" value="Ismail Adima">
+										</div>
+									  </div>
+									  <div class="form-group">
+										<label for="inputEmail" class="col-sm-2 control-label">Email</label>
+
+										<div class="col-sm-10">
+										  <input type="email" class="form-control" id="inputEmail"  value="ismailadima@gmail.com">
+										</div>
+									  </div>
+									  <div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Current Password</label>
+
+										<div class="col-sm-10">
+										  <input type="password" class="form-control" id="inputName" placeholder="Current Password">
+										</div>
+									  </div>
+									  <div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">New Password</label>
+
+										<div class="col-sm-10">
+										  <input type="password" class="form-control" id="inputName" placeholder="New Password">
+										</div>
+									  </div>
+									  <div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Retype Password</label>
+
+										<div class="col-sm-10">
+										  <input type="password" class="form-control" id="inputName" placeholder="Retype Password">
+										</div>
+									  </div>
+									  
+									  <div class="form-group">
+										<div class="col-sm-offset-2 col-sm-10">
+										  <button type="submit" class="btn btn-primary">Update</button>
+										</div>
+									  </div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+            <!-- Main content -->
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
