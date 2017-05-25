@@ -162,6 +162,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
             try {
                 Glide.with(OkSafeApp.getInstance()).load(FileUtil.from(this, Uri.parse(LocalDataManager.getInstance(this)
                         .getLastImagePath()))).into(ivPhoto);
+                profilePresenter.uploadAvatar(LocalDataManager.getInstance(this).getLastImagePath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -169,6 +170,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
             try {
                 Glide.with(OkSafeApp.getInstance()).load(FileUtil.from(this, data.getData()))
                         .into(ivPhoto);
+                profilePresenter.uploadAvatar(FileUtil.from(this, data.getData()).toString());
             } catch (IOException e) {
                 e.printStackTrace();
             }
