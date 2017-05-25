@@ -1,5 +1,7 @@
 package id.jeruk.ok_safe.ui.adapter.viewholder;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,6 +57,12 @@ public class ReportViewHolder extends BaseItemViewHolder<Report> {
                         .into(imageView);
             });
         }
+
+        tvLocation.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://maps.google.com/maps?q=" + report.getLocation()));
+            itemView.getContext().startActivity(intent);
+        });
 
         commentsView.setOnClickListener(v -> itemView.getContext()
                 .startActivity(CommentActivity.generateIntent(itemView.getContext(), report)));
