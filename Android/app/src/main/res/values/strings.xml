@@ -64,4 +64,5 @@
     <string name="desc_timJeruk">Tim Jeruk \nRekayasa Perangkat Lunak</string>
     <string name="kirim_masukan">Kirim Masukan</string>
     <string name="desc_nomor_telepon_profile">Anda masuk dengan nomor telepon +62</string>
+    <string name="hint_desc_judul">Masukan judul laporan</string>
 </resources>

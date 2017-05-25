@@ -10,6 +10,7 @@ public class Report {
     private int id;
     private String location;
     private String desc;
+    private String title;
     private List<String> photoUrls;
 
     public Report(int id,String location, String desc, List<String> photoUrls) {
@@ -41,6 +42,14 @@ public class Report {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public List<String> getPhotoUrls() {

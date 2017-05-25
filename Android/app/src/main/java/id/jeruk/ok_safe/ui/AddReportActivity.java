@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,6 +54,8 @@ public class AddReportActivity extends AppCompatActivity implements AddReportPre
         addReportPresenter = new AddReportPresenter(this, this);
         photos = new ArrayList<>(3);
         progressDialog = new ProgressDialog(this);
+
+
     }
 
     @OnClick(R.id.pick_location)
