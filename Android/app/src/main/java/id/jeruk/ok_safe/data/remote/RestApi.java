@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
@@ -11,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.jeruk.ok_safe.data.model.Report;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
 import rx.Observable;
 
 public class RestApi {
@@ -66,5 +71,35 @@ public class RestApi {
     public Observable<Object> logout() {
         sharedPreferences.edit().clear().apply();
         return Observable.just("");
+    }
+
+    private interface Api {
+
+        @FormUrlEncoded
+        @POST("/api-oksafe/login")
+        Observable<JsonElement> login(@Field("phone_number") String phoneNumber);
+
+        @FormUrlEncoded
+        @POST("/api-oksafe/register")
+        Observable<JsonElement> register(@Field("phone_number") String phoneNumber);
+
+        @FormUrlEncoded
+        @GET("/api-oksafe/posts/")
+        Observable<JsonElement> historyLaporan(@Field("id_user") String id_user);
+
+        @FormUrlEncoded
+        @POST("/api-oksafe/posts/create")
+        Observable<JsonElement> postsLaporan(@Field("id_user") String id_user,
+                                             @Field("judul") String judul,
+                                             @Field("isi") String isi,
+                                             @Field("gambar") String gambar,
+                                             @Field("latitude") long latitude,
+                                             @Field("longitude") long longitude);
+
+
+        @FormUrlEncoded
+        @POST("/api-oksafe/comment/create")
+        Observable<JsonElement> postsComment(@Field("id_post") String id_post,
+                                             @Field("komen") String komen);
     }
 }
