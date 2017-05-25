@@ -1,12 +1,15 @@
 package id.jeruk.ok_safe.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by RyMey on 4/24/17.
  */
 
-public class Report {
+public class Report implements Parcelable {
     private int id;
     private String location;
     private String desc;
@@ -19,6 +22,26 @@ public class Report {
         this.desc = desc;
         this.photoUrls = photoUrls;
     }
+
+    protected Report(Parcel in) {
+        id = in.readInt();
+        location = in.readString();
+        desc = in.readString();
+        title = in.readString();
+        photoUrls = in.createStringArrayList();
+    }
+
+    public static final Creator<Report> CREATOR = new Creator<Report>() {
+        @Override
+        public Report createFromParcel(Parcel in) {
+            return new Report(in);
+        }
+
+        @Override
+        public Report[] newArray(int size) {
+            return new Report[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -84,5 +107,19 @@ public class Report {
                 ", desc='" + desc + '\'' +
                 ", photoUrls=" + photoUrls +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return hashCode();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(location);
+        dest.writeString(desc);
+        dest.writeString(title);
+        dest.writeStringList(photoUrls);
     }
 }

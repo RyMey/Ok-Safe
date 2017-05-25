@@ -1,7 +1,5 @@
 package id.jeruk.ok_safe.ui.adapter.viewholder;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,12 +8,11 @@ import com.bumptech.glide.Glide;
 import com.synnapps.carouselview.CarouselView;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import id.jeruk.ok_safe.OkSafeApp;
 import id.jeruk.ok_safe.R;
 import id.jeruk.ok_safe.data.local.LocalDataManager;
 import id.jeruk.ok_safe.data.model.Report;
-import id.jeruk.ok_safe.ui.CommentActivity;
+import id.jeruk.ok_safe.ui.PhotoViewerActivity;
 import id.jeruk.ok_safe.ui.adapter.OnItemClickListener;
 import id.jeruk.ok_safe.ui.adapter.OnLongItemClickListener;
 
@@ -47,9 +44,14 @@ public class ReportViewHolder extends BaseItemViewHolder<Report> {
         carouselView.setPageCount(report.getPhotoUrls().size());
 
         if (report.getPhotoUrls() != null) {
-            carouselView.setImageListener((position, imageView) -> Glide.with(OkSafeApp.getInstance())
-                    .load(report.getPhotoUrls().get(position))
-                    .into(imageView));
+            carouselView.setImageListener((position, imageView) -> {
+                imageView.setOnClickListener(v -> itemView.getContext()
+                        .startActivity(PhotoViewerActivity.generateIntent(itemView.getContext(), report)));
+
+                Glide.with(OkSafeApp.getInstance())
+                        .load(report.getPhotoUrls().get(position))
+                        .into(imageView);
+            });
         }
     }
 }
