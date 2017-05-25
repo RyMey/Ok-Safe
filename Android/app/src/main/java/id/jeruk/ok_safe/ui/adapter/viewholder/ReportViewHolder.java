@@ -12,6 +12,7 @@ import id.jeruk.ok_safe.OkSafeApp;
 import id.jeruk.ok_safe.R;
 import id.jeruk.ok_safe.data.local.LocalDataManager;
 import id.jeruk.ok_safe.data.model.Report;
+import id.jeruk.ok_safe.ui.CommentActivity;
 import id.jeruk.ok_safe.ui.PhotoViewerActivity;
 import id.jeruk.ok_safe.ui.adapter.OnItemClickListener;
 import id.jeruk.ok_safe.ui.adapter.OnLongItemClickListener;
@@ -23,6 +24,7 @@ public class ReportViewHolder extends BaseItemViewHolder<Report> {
     @BindView(R.id.tv_time) TextView tvTime;
     @BindView(R.id.tv_laporan) TextView tvDesc;
     @BindView(R.id.cl_images) CarouselView carouselView;
+    @BindView(R.id.ll_comment) View commentsView;
 
     public ReportViewHolder(View itemView, OnItemClickListener itemClickListener, OnLongItemClickListener longItemClickListener) {
         super(itemView, itemClickListener, longItemClickListener);
@@ -53,5 +55,8 @@ public class ReportViewHolder extends BaseItemViewHolder<Report> {
                         .into(imageView);
             });
         }
+
+        commentsView.setOnClickListener(v -> itemView.getContext()
+                .startActivity(CommentActivity.generateIntent(itemView.getContext(), report)));
     }
 }
