@@ -46,8 +46,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_photo"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_margin="8dp"
                 android:background="@drawable/circle_white"
                 android:src="@drawable/ic_person"
@@ -95,6 +95,7 @@
                 android:layout_alignStart="@id/iv_pin_lokasi"
                 android:layout_below="@id/iv_pin_lokasi"
                 android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:textColor="@color/colorDivider"
                 android:textSize="12sp"/>
 
