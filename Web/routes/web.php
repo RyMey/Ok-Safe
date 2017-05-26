@@ -21,11 +21,10 @@ Route::get ('/', function () {
 	return redirect('login');
 });
 
-Route::get('/login','LandingController@index');
-
 Route::group(['middleware' => 'auth'], function(){
 	Route::group(['prefix' => 'admin'], function(){
-		Route::get('/issue', 'PostController@index');
+		Route::get('/','HomeController@index');
+		Route::resource('/reports', 'ReportController');
 	});
 });
 

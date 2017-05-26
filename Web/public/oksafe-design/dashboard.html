@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>OK-Safe | Dashboard</title>
+    <link rel="icon" href="dist/img/ic_launcher.png">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+    <!--link rel="stylesheet" href="dist/css/skins/_all-skins.min.css"-->
+    <link rel="stylesheet" href="dist/css/skins/skin-green-light.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="plugins/morris/morris.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+	
+	<!-- Scripts -->
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+        ]) !!};
+    </script>
+</head>
+
+<body class="hold-transition skin-green-light sidebar-mini">
+    <div class="wrapper">
+        <!-- Header Mulai -->
+        <header class="main-header">
+            <nav class="navbar navbar-static-top">
+                <!-- Header rata kiri -->
+                <!--
+      <ul class="nav navbar-nav">
+        <li class="messages-menu"><a href="#">Your Logo</a></li>
+      </ul>
+      -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Messages: style can be found in dropdown.less-->
+                        <li class="messages-menu active"><a href="dashboard.html">Dashboard</a></li>
+                        <li class="messages-menu"><a href="laporan.html">Laporan</a></li>
+						<li class="messages-menu"><a href="user.html">User</a></li>
+                        <!-- User Account Menu -->
+                        <li class="dropdown user user-menu">
+                            <!-- Profile Toggle Button -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <!-- The user image in the navbar-->
+                                <img src="dist/img/avatar04.png" class="user-image" alt="User Image">
+                                <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                <span class="hidden-xs">Faisal <b class="caret"></b></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- The user image in the menu -->
+                                <li class="user-header">
+                                    <img src="dist/img/avatar04.png" class="img-circle" alt="User Image">
+
+                                    <p>
+                                        Faisal Mahya Lubis
+                                        <small>Administrator</small>
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="profile.html" class="btn btn-blue btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="#" class="btn btn-red btn-flat">Sign out</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Header Akhir -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>Dashboard<small>Control panel</small></h1>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                
+                <!-- Main row -->
+                <div class="row">
+                    <!-- Left col -->
+                    <section class="col-lg-7 connectedSortable">
+                        <!-- Custom tabs (Charts with tabs)-->
+                        <div class="nav-tabs-custom">
+                            <!-- Tabs within a box -->
+                            <ul class="nav nav-tabs pull-right">
+                                <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a>
+                                </li>
+                                <!--li><a href="#sales-chart" data-toggle="tab">Donut</a>
+                                </li-->
+                                <li class="pull-left header"><i class="fa fa-inbox"></i> Grafik Sebaran Laporan</li>
+                            </ul>
+                            <div class="tab-content no-padding">
+                                <!-- Morris chart - Sales -->
+                                <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;"></div>
+                                <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
+                            </div>
+                        </div>
+                        <!-- /.nav-tabs-custom -->
+                    </section>
+                    <!-- /.Left col -->
+                    <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                    <section class="col-lg-5 connectedSortable">
+
+                        <!-- Map box -->
+                        <div class="box box-solid bg-light-blue-gradient">
+                            <div class="box-header">
+                                <!-- tools box -->
+                                <div class="pull-right box-tools">
+                                    <button type="button" class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" title="Date range">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /. tools -->
+
+                                <i class="fa fa-map-marker"></i>
+
+                                <h3 class="box-title">
+                Peta Sebaran Laporan
+              </h3>
+                            </div>
+                            <div class="box-body">
+                                <div id="world-map" style="height: 250px; width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- /.box -->
+
+                    </section>
+                    <!-- right col -->
+                </div>
+                <!-- /.row (main row) -->
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &copy; 2017 OK-Safe Team</a>.</strong> All rights reserved.
+        </footer>
+
+        <!-- Control Sidebar -->
+
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery 2.2.3 -->
+    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- Morris.js charts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="plugins/morris/morris.min.js"></script>
+    <!-- Sparkline -->
+    <script src="plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!-- jvectormap -->
+    <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="plugins/knob/jquery.knob.js"></script>
+    <!-- daterangepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- datepicker -->
+    <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="plugins/fastclick/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/app.min.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="dist/js/pages/dashboard.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="dist/js/demo.js"></script>
+</body>
+
+</html>

@@ -41,13 +41,13 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-$app->withFacades();
+/*$app->withFacades();
 $app->withEloquent();
 $app->routeMiddleware([
 	'auth' => Illuminate\Auth\Middleware\Authenticate::class,
 ]);
 
-$app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);*/
 
 /*
 |--------------------------------------------------------------------------

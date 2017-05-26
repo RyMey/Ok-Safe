@@ -9,4 +9,5 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorGray">#F2F2F2</color>
+    <color name="colorBlackTransparent">#88000000</color>
 </resources>
