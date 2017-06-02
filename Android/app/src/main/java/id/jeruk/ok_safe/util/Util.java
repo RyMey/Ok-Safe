@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 import id.jeruk.ok_safe.data.local.LocalDataManager;
 
@@ -84,4 +85,8 @@ public class Util {
         return image;
     }
 
+    public static int randInt(int min, int max) {
+        Random rand = new Random();
+        return rand.nextInt((max - min) + 1) + min;
+    }
 }
