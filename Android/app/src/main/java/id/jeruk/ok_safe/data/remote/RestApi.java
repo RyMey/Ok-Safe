@@ -88,23 +88,25 @@ public class RestApi {
                 .map(jsonElement -> null);
     }
 
-    public Observable<Comment> sendComment(String message) {
+    public Observable<Comment> sendComment(int reportId, String message) {
         List<Comment> comments = new ArrayList<>();
-        return getComment()
+        User user = LocalDataManager.getInstance(OkSafeApp.getInstance()).getUser();
+        return getComments(reportId)
                 .flatMap(Observable::from)
                 .doOnNext(comments::add)
                 .map(Comment::getId)
                 .reduce(0, Math::max)
-                .map(i -> new Comment(i + 1, Calendar.getInstance().getTime(),message))
+                .map(i -> new Comment(i + 1, Calendar.getInstance().getTime(), message, user))
                 .doOnNext(comment -> {
                     comments.add(comment);
                     sharedPreferences.edit()
-                            .putString("comments", gson.toJson(comments))
+                            .putString("comments_" + reportId, gson.toJson(comments))
                             .apply();
                 });
     }
-    public Observable<List<Comment>> getComment() {
-        String json = sharedPreferences.getString("comment", "");
+
+    public Observable<List<Comment>> getComments(int reportId) {
+        String json = sharedPreferences.getString("comments_" + reportId, "");
         List<Comment> comments = gson.fromJson(json, new TypeToken<List<Comment>>() {
         }.getType());
         if (comments == null) {
@@ -147,7 +149,6 @@ public class RestApi {
 
     public Observable<List<Reward>> getRewards() {
         List<Reward> rewards = new ArrayList<>();
-        User user = LocalDataManager.getInstance(OkSafeApp.getInstance()).getUser();
         for (int i = 1; i <= 15; i++) {
             rewards.add(new Reward("Reward " + i, new Date(), ""));
         }

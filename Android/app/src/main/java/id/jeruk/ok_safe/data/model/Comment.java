@@ -10,11 +10,13 @@ public class Comment {
     private int id;
     private Date date;
     private String desc;
+    private User sender;
 
-    public Comment(int id, Date date, String desc) {
+    public Comment(int id, Date date, String desc, User sender) {
         this.id = id;
         this.date = date;
         this.desc = desc;
+        this.sender = sender;
     }
 
     public int getId() {
@@ -39,5 +41,13 @@ public class Comment {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 }
