@@ -9,11 +9,15 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import id.jeruk.ok_safe.OkSafeApp;
+import id.jeruk.ok_safe.data.local.LocalDataManager;
 import id.jeruk.ok_safe.data.model.Comment;
 import id.jeruk.ok_safe.data.model.Report;
+import id.jeruk.ok_safe.data.model.Reward;
 import id.jeruk.ok_safe.data.model.User;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -27,7 +31,7 @@ import rx.Observable;
 
 public class RestApi {
     private static RestApi instance;
-    
+
     private final SharedPreferences sharedPreferences;
     private final Gson gson;
     private final OkHttpClient httpClient;
@@ -119,6 +123,15 @@ public class RestApi {
             reports = new ArrayList<>();
         }
         return Observable.just(reports);
+    }
+
+    public Observable<List<Reward>> getRewards() {
+        List<Reward> rewards = new ArrayList<>();
+        User user = LocalDataManager.getInstance(OkSafeApp.getInstance()).getUser();
+        for (int i = 1; i <= 15; i++) {
+            rewards.add(new Reward("Reward " + i, new Date(), user.getImgUrl()));
+        }
+        return Observable.just(rewards);
     }
 
 
