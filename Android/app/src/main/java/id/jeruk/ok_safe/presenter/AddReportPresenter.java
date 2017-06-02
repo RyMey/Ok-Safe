@@ -18,10 +18,10 @@ public class AddReportPresenter extends BasePresenter<AddReportPresenter.View> {
         this.context = context;
     }
 
-    public void postReport(String location, String desc, List<File> photos) {
+    public void postReport(String location, String title, String desc, List<File> photos) {
         view.showLoading();
         RestApi.getInstance(context)
-                .postReport(location, desc, photos)
+                .postReport(location, title, desc, photos)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(bindToLifecycle())

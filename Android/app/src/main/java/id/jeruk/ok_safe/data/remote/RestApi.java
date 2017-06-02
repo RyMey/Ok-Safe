@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -87,13 +88,32 @@ public class RestApi {
                 .map(jsonElement -> null);
     }
 
-    public Observable<Comment> createComment(String reportId, String message) {
-        return api.createComment(reportId, message)
-                //TODO map json response to Comment pojo
-                .map(jsonElement -> null);
+    public Observable<Comment> sendComment(String message) {
+        List<Comment> comments = new ArrayList<>();
+        return getComment()
+                .flatMap(Observable::from)
+                .doOnNext(comments::add)
+                .map(Comment::getId)
+                .reduce(0, Math::max)
+                .map(i -> new Comment(i + 1, Calendar.getInstance().getTime(),message))
+                .doOnNext(comment -> {
+                    comments.add(comment);
+                    sharedPreferences.edit()
+                            .putString("comments", gson.toJson(comments))
+                            .apply();
+                });
+    }
+    public Observable<List<Comment>> getComment() {
+        String json = sharedPreferences.getString("comment", "");
+        List<Comment> comments = gson.fromJson(json, new TypeToken<List<Comment>>() {
+        }.getType());
+        if (comments == null) {
+            comments = new ArrayList<>();
+        }
+        return Observable.just(comments);
     }
 
-    public Observable<Report> postReport(String location, String desc, List<File> photos) {
+    public Observable<Report> postReport(String location, String title, String desc, List<File> photos) {
         List<String> photoUrls = new ArrayList<>();
         for (File photo : photos) {
             photoUrls.add(photo.getAbsolutePath());
@@ -106,7 +126,7 @@ public class RestApi {
                 .doOnNext(reports::add)
                 .map(Report::getId)
                 .reduce(0, Math::max)
-                .map(i -> new Report(i + 1, location, desc, photoUrls))
+                .map(i -> new Report(i + 1, location, title, desc, photoUrls))
                 .doOnNext(report -> {
                     reports.add(report);
                     sharedPreferences.edit()
@@ -129,7 +149,7 @@ public class RestApi {
         List<Reward> rewards = new ArrayList<>();
         User user = LocalDataManager.getInstance(OkSafeApp.getInstance()).getUser();
         for (int i = 1; i <= 15; i++) {
-            rewards.add(new Reward("Reward " + i, new Date(), user.getImgUrl()));
+            rewards.add(new Reward("Reward " + i, new Date(), ""));
         }
         return Observable.just(rewards);
     }

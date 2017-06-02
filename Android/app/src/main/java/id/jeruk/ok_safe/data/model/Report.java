@@ -3,6 +3,10 @@ package id.jeruk.ok_safe.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,11 +18,13 @@ public class Report implements Parcelable {
     private String location;
     private String desc;
     private String title;
+    private Date date;
     private List<String> photoUrls;
 
-    public Report(int id,String location, String desc, List<String> photoUrls) {
+    public Report(int id,String location, String title, String desc, List<String> photoUrls) {
         this.id = id;
         this.location = location;
+        this.title = title;
         this.desc = desc;
         this.photoUrls = photoUrls;
     }
@@ -73,6 +79,16 @@ public class Report implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDate() {
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        Date today = Calendar.getInstance().getTime();
+        return df.format(today);
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public List<String> getPhotoUrls() {

@@ -26,7 +26,8 @@ public class RewardViewHolder extends BaseItemViewHolder<Reward> {
 
     @Override
     public void bind(Reward reward) {
-        Glide.with(OkSafeApp.getInstance()).load(reward.getImgUrl()).into(imageView);
+        Glide.with(OkSafeApp.getInstance()).load(reward.getImgUrl()).error(R.drawable.ic_reward_ph).into(
+                imageView);
         titleView.setText(reward.getTitle());
         dateView.setText(new SimpleDateFormat("dd/MM/yyyy").format(reward.getDate()));
     }

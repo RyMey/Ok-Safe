@@ -38,6 +38,7 @@ public class AddReportActivity extends AppCompatActivity implements AddReportPre
 
     @BindView(R.id.address) TextView tvAddress;
     @BindView(R.id.et_report) EditText etReport;
+    @BindView(R.id.et_title) EditText etTitle;
     @BindView(R.id.iv_photo1) ImageView ivPhoto1;
     @BindView(R.id.iv_photo2) ImageView ivPhoto2;
     @BindView(R.id.iv_photo3) ImageView ivPhoto3;
@@ -153,15 +154,19 @@ public class AddReportActivity extends AppCompatActivity implements AddReportPre
     public void sendReport() {
         String location = tvAddress.getText().toString().trim();
         String desc = etReport.getText().toString().trim();
+        String title = etTitle.getText().toString().trim();
         if (location.equals(getString(R.string.press_pin_lokasi))) {
             showError("Mohon isi lokasi laporan!");
-        } else if (TextUtils.isEmpty(desc)) {
+        } else if (TextUtils.isEmpty(title)) {
+            etReport.setError("Mohon isi judul laporan!");
+            etReport.requestFocus();
+        }  else if (TextUtils.isEmpty(desc)) {
             etReport.setError("Mohon isi detail laporan!");
             etReport.requestFocus();
-        } else if (photos.size() <= 0) {
+        }else if (photos.size() <= 0) {
             showError("Mohon isi foto laporan minimal satu!");
         } else {
-            addReportPresenter.postReport(location, desc, photos);
+            addReportPresenter.postReport(location, title, desc, photos);
         }
     }
 

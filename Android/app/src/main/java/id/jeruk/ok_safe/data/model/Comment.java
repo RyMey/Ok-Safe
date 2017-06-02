@@ -7,21 +7,21 @@ import java.util.Date;
  */
 
 public class Comment {
-    private String id;
+    private int id;
     private Date date;
     private String desc;
 
-    public Comment(String id, Date date, String desc) {
+    public Comment(int id, Date date, String desc) {
         this.id = id;
         this.date = date;
         this.desc = desc;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

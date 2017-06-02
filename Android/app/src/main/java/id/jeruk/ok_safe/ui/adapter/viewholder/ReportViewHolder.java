@@ -40,9 +40,9 @@ public class ReportViewHolder extends BaseItemViewHolder<Report> {
                 .placeholder(R.drawable.ic_person)
                 .into(ivAvatar);
 
-        tvTitle.setText("Judul");
+        tvTitle.setText(report.getTitle());
         tvLocation.setText(report.getLocation());
-        tvTime.setText("Kemarin");
+        tvTime.setText(report.getDate());
         tvDesc.setText(report.getDesc());
 
         carouselView.setPageCount(report.getPhotoUrls().size());
